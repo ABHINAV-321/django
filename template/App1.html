@@ -1,0 +1,9 @@
+{%load static %}
+
+{% for obj in movies%}
+<h2>movies</h2>
+<h2>{{obj.title}}</h2>
+<h4>{{obj.year}}</h4>
+<img src="{% static 'images/'%}{{obj.img}}" alt="image" width="100px" height="250px" style="padding-left:20px">
+<h2>hi</h2>
+{%endfor%}
