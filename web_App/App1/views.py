@@ -1,29 +1,39 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import json
+from . models import movie
+from . form import movie_form
 
 # Create your views here.
 def print_log(request) :
+  if request.POST:
+    frm=movie_form(request.POST)
+    print('\n working \n')
+    if frm.is_valid:
+      frm.save()
+    
   print('woekingggggggg')
-  movies = {'movies':[{'title':'thor','year':2000,'img':'IMG-20240402-WA0007.jpg'},{'title':'love','year':2006,'img':'null-20240404-WA0000.jpg'}]}
-  return render(request,'App1.html',movies)
+  movies = movie.objects.all
+  print(movie.objects.all)
+  return render(request,'App1.html',{"movies":movies})
+  #return HttpResponse('hi')
 
 def form(request):
-  if request.POST:
-    print('\n working \n')
-    
+  frm=movie_form()
+  
   #  data = json.loads(request.body.decode())
+  ''' 
     print(request.POST)
     movies={'movies':[{'title':request.POST.get('title'),'year':request.POST.get('year')}]}
-    
-
-    return render(request,'App1.html',movies)
+    movie_obj=movie(title=request.POST.get('title'),year=request.POST.get('year'))
+    movie_obj.save()'''
+  return render(request,'App1.html')
     
 
     # TODO: missing a suitable `content-type` header check
     
 
-  return render(request,'form.html')
+  return render(request,'form.html',{'frm':frm})
   
 '''def form_sub(request):
   

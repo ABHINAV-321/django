@@ -1,6 +1,6 @@
-<form method="post">
+
+<form method="post" action="/../app1/">
   {% csrf_token %}
-  Title:<input type="text" name="title">
-  Year:<input type="text" name="year">
+ {{frm.as_p }}
   <input type="submit" value="submit">
 </form>
