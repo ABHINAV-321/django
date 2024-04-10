@@ -27,7 +27,7 @@ def form(request):
     movies={'movies':[{'title':request.POST.get('title'),'year':request.POST.get('year')}]}
     movie_obj=movie(title=request.POST.get('title'),year=request.POST.get('year'))
     movie_obj.save()'''
-  return render(request,'App1.html')
+  return render(request,'form.html',{'frm':frm})
     
 
     # TODO: missing a suitable `content-type` header check
@@ -36,6 +36,7 @@ def form(request):
   return render(request,'form.html',{'frm':frm})
   
 '''def form_sub(request):
+
   
    # if request.post :
   print('hi')
@@ -43,3 +44,26 @@ def form(request):
   
   return render(request,'App1.html',request.POST)
 '''
+
+def edit(request,pk):
+  instance =movie.objects.get(id=pk)
+  frm=movie_form(instance=instance)
+  if request.POST:
+    title=request.POST.get('title')
+    year=request.POST.get('year')
+    
+   
+    movie.objects.filter(id=pk).update(title=title,year=year)
+    
+    return print_log(request)
+  return render(request,'form.html',{'frm':frm})
+
+
+
+def delete(request,pk):
+  print('delete')
+  instance =movie.objects.get(id=pk)
+  instance.delete()
+  return print_log(request)
+ # movies = movie.objects.all
+ # return render(request,'App1.html',{"movies":movies})
